@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anthony Wu · Class of 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet:#8b5cf6; --coral:#ff5d8f; --aqua:#22d3ee; --gold:#ffc857;
+  --display:'Syne','Helvetica Neue',Arial,sans-serif;
+  --body:'Manrope','Helvetica Neue',Arial,sans-serif;
+  --grad:linear-gradient(100deg,var(--coral),var(--gold) 50%,var(--aqua));
+}
+html[data-theme="dark"]{
+  --bg:#0e0826; --bg2:#170d3a; --text:#f4f1ff; --muted:#b9afdc;
+  --card:rgba(255,255,255,.07); --line:rgba(255,255,255,.15); --blob:.55;
+}
+html[data-theme="light"]{
+  --bg:#faf7ff; --bg2:#eee7ff; --text:#1c1240; --muted:#5d5486;
+  --card:rgba(255,255,255,.8); --line:rgba(70,40,150,.16); --blob:.35;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:1.05rem;line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--aqua);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 1.5rem;position:relative}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* background aurora */
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(1200px 700px at 80% -10%,var(--bg2),var(--bg))}
+.aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:var(--blob);animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:520px;height:520px;background:var(--violet);top:-8%;left:-6%}
+.aurora i:nth-child(2){width:460px;height:460px;background:var(--coral);top:35%;right:-8%;animation-delay:-7s}
+.aurora i:nth-child(3){width:420px;height:420px;background:var(--aqua);bottom:-10%;left:25%;animation-delay:-13s}
+@keyframes drift{to{transform:translate(70px,-50px) scale(1.15)}}
+
+.glow{position:fixed;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(139,92,246,.22),transparent 65%);transform:translate(-50%,-50%);left:-999px;top:-999px}
+.scrollbar{position:fixed;top:0;left:0;height:4px;width:0;background:var(--grad);z-index:50}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 70%,transparent);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:.75rem;padding-bottom:.75rem}
+.logo{font-family:var(--display);font-weight:800;font-size:1.3rem;text-decoration:none;letter-spacing:-.02em}
+nav ul{display:flex;gap:1.3rem;list-style:none;font-weight:600;font-size:.92rem;overflow-x:auto}
+nav ul a{text-decoration:none;color:var(--muted);white-space:nowrap;transition:color .2s}
+nav ul a:hover{color:var(--text)}
+.tools{display:flex;gap:.5rem}
+.pill{font-family:var(--body);font-weight:700;font-size:.85rem;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:.5rem 1rem;cursor:pointer;white-space:nowrap}
+.pill:hover{border-color:var(--aqua)}
+.pill[aria-pressed="true"]{background:var(--gold);color:#1c1240;border-color:var(--gold)}
+body.editing .ed{outline:2px dashed var(--aqua);outline-offset:4px;border-radius:4px}
+
+/* HERO */
+.hero{position:relative;padding:5rem 0 6rem;overflow:hidden}
+#stars{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:3rem;align-items:center;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:.35rem 1rem;font-weight:700;font-size:.9rem;margin-bottom:1.4rem}
+.badge::before{content:"";width:9px;height:9px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3.4rem,10vw,7.4rem);line-height:.9;letter-spacing:-.045em}
+.hero h1 span{display:block}
+.role{margin-top:1.4rem;font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,3vw,1.7rem);min-height:2.2rem}
+.role b{color:var(--gold)}
+.caret{display:inline-block;width:3px;height:1.2em;background:var(--aqua);vertical-align:-.2em;margin-left:3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.tagline{margin-top:.8rem;color:var(--muted);max-width:46ch;font-size:1.15rem}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.btn{font-family:var(--body);font-weight:700;text-decoration:none;padding:.9rem 1.6rem;border-radius:99px;border:1px solid var(--line);color:var(--text);background:var(--card);cursor:pointer;font-size:1rem;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn.main{background:var(--grad);color:#1c1240;border:0;box-shadow:0 12px 30px -10px var(--coral)}
+
+.portrait{position:relative;justify-self:center;width:min(100%,380px);aspect-ratio:1}
+.ring{position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,var(--coral),var(--gold),var(--aqua),var(--violet),var(--coral));animation:spin 8s linear infinite;filter:blur(1px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:var(--bg2);display:grid;place-items:center;text-align:center;cursor:pointer;font-weight:700;border:6px solid var(--bg);padding:2rem}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo small{display:block;color:var(--muted);font-weight:500}
+.float{position:absolute;background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:.6rem 1rem;font-weight:700;font-size:.9rem;animation:bob 5s ease-in-out infinite;z-index:2}
+.float small{display:block;font-weight:500;color:var(--muted);font-size:.75rem}
+.float.a{top:2%;left:-12%}
+.float.b{bottom:12%;right:-10%;animation-delay:-2s}
+.float.c{bottom:-4%;left:6%;animation-delay:-3.5s}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.shape{position:absolute;pointer-events:none}
+.shape.s1{width:60px;height:60px;border:4px solid var(--gold);border-radius:50%;top:-30px;right:8%;animation:bob 6s ease-in-out infinite}
+.shape.s2{width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-bottom:38px solid var(--coral);bottom:-20px;right:-24px;transform:rotate(18deg);opacity:.9}
+
+/* MARQUEE */
+.marquee{overflow:hidden;border-block:1px solid var(--line);background:var(--card);padding:1rem 0;transform:rotate(-1.2deg);margin:-1rem -2rem 0}
+.track{display:flex;gap:3rem;width:max-content;animation:scroll 28s linear infinite;font-family:var(--display);font-weight:800;font-size:1.6rem;letter-spacing:-.01em}
+.track span::after{content:"✦";margin-left:3rem;color:var(--gold)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:6rem 0;position:relative}
+.kicker{display:inline-block;font-weight:700;font-size:.9rem;color:var(--aqua);margin-bottom:.6rem}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.5vw,3.8rem);letter-spacing:-.035em;line-height:1;margin-bottom:.8rem}
+.lede{color:var(--muted);max-width:56ch;margin-bottom:3rem;font-size:1.12rem}
+.card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:1.8rem}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.stat{text-align:center}
+.stat strong{display:block;font-family:var(--display);font-weight:800;font-size:3rem;letter-spacing:-.04em;line-height:1}
+.stat span{color:var(--muted);font-weight:600;font-size:.95rem}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start}
+.about p+p{margin-top:1rem}
+.about p{color:var(--muted);font-size:1.12rem}
+
+/* timeline */
+.timeline{list-style:none;position:relative;padding-left:2.4rem}
+.timeline::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:3px;background:linear-gradient(var(--coral),var(--violet),var(--aqua));border-radius:3px}
+.timeline li{position:relative;margin-bottom:1.4rem}
+.timeline li::before{content:"";position:absolute;left:-2.4rem;top:1.8rem;width:25px;height:25px;border-radius:50%;background:var(--bg);border:5px solid var(--gold);box-shadow:0 0 18px var(--gold)}
+.timeline .card{display:grid;grid-template-columns:90px 1fr;gap:.4rem 1.2rem;transition:transform .25s,border-color .25s}
+.timeline .card:hover{transform:translateX(8px);border-color:var(--gold)}
+.yr{font-family:var(--display);font-weight:800;font-size:1.6rem}
+h3{font-family:var(--display);font-weight:700;font-size:1.3rem;line-height:1.2;letter-spacing:-.015em}
+.timeline p{color:var(--muted);margin-top:.3rem}
+.tag{display:inline-block;margin-top:.6rem;font-weight:700;font-size:.8rem;padding:.2rem .8rem;border-radius:99px;background:rgba(139,92,246,.25);border:1px solid rgba(139,92,246,.5)}
+
+/* talents */
+.talents{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;perspective:1000px}
+.talent{transition:transform .15s;transform-style:preserve-3d;position:relative;overflow:hidden}
+.talent .ic{width:62px;height:62px;border-radius:20px;display:grid;place-items:center;font-size:1.9rem;margin-bottom:1.2rem}
+.talent:nth-child(1) .ic{background:linear-gradient(135deg,var(--coral),var(--gold))}
+.talent:nth-child(2) .ic{background:linear-gradient(135deg,var(--violet),var(--coral))}
+.talent:nth-child(3) .ic{background:linear-gradient(135deg,var(--aqua),var(--violet))}
+.talent p{color:var(--muted);margin-top:.5rem}
+.talent::after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;right:-60px;bottom:-60px;background:var(--grad);opacity:.15}
+
+/* interests */
+.chips{display:flex;flex-wrap:wrap;gap:.7rem;list-style:none}
+.chips li{font-weight:700;padding:.65rem 1.3rem;border-radius:99px;border:1px solid var(--line);background:var(--card);transition:transform .2s,background .2s,color .2s;cursor:default}
+.chips li:hover{transform:translateY(-4px) rotate(-2deg);background:var(--grad);color:#1c1240;border-color:transparent}
+
+/* progress */
+.progress{display:grid;gap:1.1rem;max-width:860px}
+.prog{padding:1.3rem 1.6rem}
+.prog .top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.prog .pct{font-family:var(--display);font-weight:800;font-size:1.5rem}
+.bar{height:14px;border-radius:99px;background:var(--line);overflow:hidden;margin:.7rem 0 .5rem}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--grad);transition:width 1.6s cubic-bezier(.2,.8,.2,1);position:relative}
+.bar i::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-100%);animation:shine 3s 1.8s infinite}
+@keyframes shine{to{transform:translateX(100%)}}
+.prog .note{color:var(--muted);font-size:.95rem}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+.skills h3{margin-bottom:1.2rem}
+.rings{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem 1rem}
+.skill{text-align:center}
+.skill svg{width:92px;height:92px;transform:rotate(-90deg)}
+.skill circle{fill:none;stroke-width:8;stroke-linecap:round}
+.skill .bg{stroke:var(--line)}
+.skill .fg{stroke:url(#g);stroke-dasharray:226;stroke-dashoffset:226;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1)}
+.skill .v{margin-top:-62px;height:62px;font-family:var(--display);font-weight:800;font-size:1.1rem;display:grid;place-items:center}
+.skill p{font-weight:700;font-size:.92rem;margin-top:.2rem}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:1rem}
+.shot{position:relative;border-radius:22px;overflow:hidden;display:grid;place-items:center;text-align:center;font-weight:700;color:var(--muted);cursor:pointer;border:2px dashed var(--line);background:var(--card);transition:transform .25s,border-color .25s}
+.shot:hover{transform:scale(1.02);border-color:var(--aqua)}
+.shot:nth-child(1){grid-column:span 2;grid-row:span 2}
+.shot:nth-child(4){grid-row:span 2}
+.shot:nth-child(5){grid-column:span 2}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.shot.filled{border:0}
+.shot .plus{font-size:2rem;display:block;color:var(--aqua)}
+.shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.2rem .9rem .6rem;background:linear-gradient(transparent,rgba(14,8,38,.9));color:#fff;font-size:.9rem;text-align:left}
+
+/* resume */
+.paper{background:#fff;color:#1c1240;border-radius:26px;padding:2.8rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem 3rem;box-shadow:0 40px 80px -30px rgba(0,0,0,.6);position:relative;overflow:hidden}
+.paper::before{content:"";position:absolute;left:0;top:0;right:0;height:10px;background:var(--grad)}
+.paper .head{grid-column:1/-1;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;align-items:end;border-bottom:2px solid #1c1240;padding-bottom:1rem;margin-top:.5rem}
+.paper .head h3{font-size:2rem}
+.paper .head p{color:#5d5486;font-size:.95rem}
+.paper h4{font-family:var(--display);font-weight:800;font-size:1.05rem;margin-bottom:.6rem;color:#6d3df0}
+.paper ul{padding-left:1.2rem}
+.paper li,.paper .item{margin-bottom:.5rem}
+.paper .item{margin-bottom:.9rem}
+
+
+/* skills with proof */
+.sk{list-style:none;display:grid;gap:1rem}
+.sk li{display:grid;gap:.1rem;padding-left:1rem;border-left:4px solid var(--violet)}
+.sk li:nth-child(2n){border-color:var(--coral)}
+.sk li:nth-child(3n){border-color:var(--aqua)}
+.sk b{font-family:var(--display);font-weight:700;font-size:1.1rem}
+.sk span{color:var(--muted);font-size:.98rem}
+.paper h4+.item{margin-top:.2rem}
+.paper .sub{color:#5d5486;font-size:.92rem}
+.paper .item p{font-size:.95rem;margin-top:.15rem}
+.paper .when{float:right;color:#5d5486;font-size:.9rem}
+
+/* footer */
+footer{padding:6rem 0 4rem;text-align:center}
+footer h2{font-size:clamp(2.6rem,8vw,6rem)}
+.mail{display:inline-block;margin-top:1rem;font-family:var(--display);font-weight:700;font-size:1.5rem}
+footer small{display:block;margin-top:3rem;color:var(--muted)}
+
+.hidden{display:none}
+/* reveal */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:880px){
+  .hero .wrap,.about,.skills,.paper{grid-template-columns:1fr}
+  .talents{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr);gap:1.8rem}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  nav ul{display:none}
+  .portrait{order:-1;width:min(72%,300px)}
+  .float.a{left:-4%}.float.b{right:-4%}
+  .timeline .card{grid-template-columns:1fr}
+  .marquee{margin:-1rem -3rem 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+@media print{
+  html{--bg:#fff}
+  .aurora,.glow,.scrollbar,nav,.hero,.marquee,footer,section:not(#resume),.cta{display:none!important}
+  #resume{padding:0}.paper{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div class="scrollbar" id="scrollbar"></div>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<nav aria-label="Main">
+  <div class="wrap">
+    <a class="logo grad" href="#top">AW</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#talents">Talents</a></li>
+      <li><a href="#progress">Progress</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#gallery">Photos</a></li>
+      <li><a href="#resume">Resume</a></li>
+    </ul>
+    <div class="tools">
+      <button class="pill" id="themeBtn" aria-label="Switch light or dark theme">☀ Light</button>
+      <button class="pill" id="editBtn" aria-pressed="false">Edit text</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="badge ed">Class of 2027 · Algonquin Regional High School</span>
+      <h1><span class="ed">Anthony</span><span class="grad ed">Wu</span></h1>
+      <p class="role">I am a <b id="typed"></b><span class="caret"></span></p>
+      <p class="tagline ed">From robots to research to the concert stage, I build things and lead the teams that make them happen.</p>
+      <div class="cta">
+        <a class="btn main" href="#resume">View my resume</a>
+        <a class="btn" href="#gallery">See my photos</a>
+      </div>
+    </div>
+    <div class="portrait">
+      <div class="shape s1"></div><div class="shape s2"></div>
+      <div class="ring"></div>
+      <label class="photo" id="photoBox" tabindex="0">
+        <span id="photoHint">Tap to add your portrait<small>JPG or PNG</small></span>
+        <input type="file" accept="image/*" class="hidden" id="photoInput">
+      </label>
+      <div class="float a ed"><span>4.34 GPA</span><small>Weighted · SAT 1500</small></div>
+      <div class="float b ed"><span>NexGen Journal</span><small>Paper accepted</small></div>
+      <div class="float c ed"><span>Carnegie Hall</span><small>Performed in 2024</small></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track" id="track"></div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about rv">
+      <div>
+        <span class="kicker">About me</span>
+        <h2>Builder. Musician. <span class="grad">Researcher.</span></h2>
+      </div>
+      <div>
+        <p class="ed">I'm a senior at Algonquin Regional High School in Southborough, Massachusetts. I founded a non-profit that teaches VEX Robotics, I've studied violin for 13 years, and this year I wrote a machine-learning research paper that was accepted for publication.</p>
+        <p class="ed">I lead the Science National Honor Society, the Science Research Club, and our Science Olympiad team, and I play soccer for the varsity team. This site shows what I've done and what I care about.</p>
+      </div>
+    </div>
+    <div class="stats card rv" style="margin-top:3rem">
+      <div class="stat"><strong class="grad" data-count="200" data-suffix="+">0</strong><span class="ed">Students taught robotics</span></div>
+      <div class="stat"><strong class="grad" data-count="700" data-suffix="+">0</strong><span class="ed">Volunteer service hours given</span></div>
+      <div class="stat"><strong class="grad" data-count="13">0</strong><span class="ed">Years of violin</span></div>
+      <div class="stat"><strong class="grad" data-count="99" data-suffix="%">0</strong><span class="ed">Accuracy of my research model</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements">
+  <div class="wrap">
+    <span class="kicker">Achievements</span>
+    <h2>Moments I'm <span class="grad">proud of</span></h2>
+    <p class="lede">Awards, honors, and milestones, from newest to oldest.</p>
+    <ol class="timeline">
+      <li class="rv"><div class="card">
+        <span class="yr ed">2026–27</span>
+        <div><h3 class="ed">Soccer champion, twice over</h3><p class="ed">Won first place in the New England Club Soccer League (NECSL) division and was a champion in the Spartans Soccer Summer League.</p><span class="tag ed">Soccer</span></div>
+      </div></li>
+      <li class="rv"><div class="card">
+        <span class="yr ed">Grade 12</span>
+        <div><h3 class="ed">First Place, Charleston International Competition</h3><p class="ed">Won first place performing on violin in an international music competition.</p><span class="tag ed">Music</span></div>
+      </div></li>
+      <li class="rv"><div class="card">
+        <span class="yr ed">2026</span>
+        <div><h3 class="ed">Research paper accepted by NexGen Journal</h3><p class="ed">Trained an XGBoost model on patient data to reach 99% accuracy, then wrote a paper that was peer reviewed and accepted for publication.</p><span class="tag ed">Research</span></div>
+      </div></li>
+      <li class="rv"><div class="card">
+        <span class="yr ed">2025–27</span>
+        <div><h3 class="ed">Math Honor Society and Seal of Biliteracy in Latin</h3><p class="ed">Member of the Math Honor Society and recipient of the Massachusetts Seal of Biliteracy in Latin.</p><span class="tag ed">Academic</span></div>
+      </div></li>
+      <li class="rv"><div class="card">
+        <span class="yr ed">2024</span>
+        <div><h3 class="ed">First Prize, Elite International Music Competition</h3><p class="ed">Earned first prize and performed at Carnegie Hall.</p><span class="tag ed">Music</span></div>
+      </div></li>
+      <li class="rv"><div class="card">
+        <span class="yr ed">2024</span>
+        <div><h3 class="ed">Semifinalist, CREATE U.S. Open Robotics Tournament</h3><p class="ed">Reached the semifinals with my VEX Robotics team.</p><span class="tag ed">Robotics</span></div>
+      </div></li>
+      <li class="rv"><div class="card">
+        <span class="yr ed">2024</span>
+        <div><h3 class="ed">President's Volunteer Service Award, Gold</h3><p class="ed">Recognized for more than 250 hours of community service.</p><span class="tag ed">Service</span></div>
+      </div></li>
+      <li class="rv"><div class="card">
+        <span class="yr ed">2023–25</span>
+        <div><h3 class="ed">Massachusetts All-State Orchestra</h3><p class="ed">Selected for the All-State Orchestra in both 2023–24 and 2024–25.</p><span class="tag ed">Music</span></div>
+      </div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="talents">
+  <div class="wrap">
+    <span class="kicker">Talents and interests</span>
+    <h2>What I'm <span class="grad">great at</span></h2>
+    <p class="lede">Three strengths I bring to every team, and the things I love most.</p>
+    <div class="talents">
+      <article class="card talent tilt rv"><div class="ic">🚀</div><h3 class="ed">Leading and organizing</h3><p class="ed">I founded NERA, lead two honor and research clubs, captain Science Olympiad, and led my VEX teams through high-pressure competitions.</p></article>
+      <article class="card talent tilt rv"><div class="ic">🎻</div><h3 class="ed">Music at a high level</h3><p class="ed">Thirteen years of violin, Bruch to Paganini, All-State Orchestra, and tours with the Boston Philharmonic Youth Orchestra.</p></article>
+      <article class="card talent tilt rv"><div class="ic">🔬</div><h3 class="ed">Research and building</h3><p class="ed">I turn questions into working things: a machine-learning model, a CAD design, and robots built over hundreds of hours.</p></article>
+    </div>
+    <ul class="chips rv" style="margin-top:2.5rem">
+      <li class="ed">🤖 VEX Robotics</li><li class="ed">🎻 Violin</li><li class="ed">🧠 Machine learning</li><li class="ed">⚽ Soccer</li>
+      <li class="ed">🔬 Science</li><li class="ed">🛠 CAD design</li><li class="ed">🎼 Orchestra</li><li class="ed">🏛 Latin</li><li class="ed">🤝 Volunteering</li>
+    </ul>
+  </div>
+</section>
+
+<section id="progress">
+  <div class="wrap">
+    <span class="kicker">Progress</span>
+    <h2>Growth I've <span class="grad">led</span></h2>
+    <p class="lede">Real numbers from the groups I lead and the work I've done.</p>
+    <div class="progress" id="progressList">
+      <div class="card prog rv"><div class="top"><h3 class="ed">Science Research Club</h3><span class="pct">+86%</span></div><div class="bar"><i data-w="86"></i></div><p class="note ed">Grew membership from about 7 to 13 and helped members find internships, research projects, and summer programs.</p></div>
+      <div class="card prog rv"><div class="top"><h3 class="ed">NERA summer camp</h3><span class="pct">+50%</span></div><div class="bar"><i data-w="50"></i></div><p class="note ed">Extended the camp from 2 to 3 weeks based on customer feedback, teaching about 20 students each week.</p></div>
+      <div class="card prog rv"><div class="top"><h3 class="ed">Science National Honor Society</h3><span class="pct">+16%</span></div><div class="bar"><i data-w="16"></i></div><p class="note ed">Grew membership from 77 to 89 and brought science labs to about 100 elementary students.</p></div>
+      <div class="card prog rv"><div class="top"><h3 class="ed">Kidney disease research model</h3><span class="pct">99%</span></div><div class="bar"><i data-w="99"></i></div><p class="note ed">Reached 99% accuracy after working through overfitting and data cleaning.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <span class="kicker">Skills</span>
+    <h2>My <span class="grad">toolkit</span></h2>
+    <p class="lede">Each skill comes with the proof behind it.</p>
+    <div class="skills">
+      <div class="card rv"><h3 style="margin-bottom:1.2rem">Technical</h3><ul class="sk">
+        <li><b class="ed">Machine learning</b><span class="ed">Trained an XGBoost model on UC Irvine patient data.</span></li>
+        <li><b class="ed">CAD design</b><span class="ed">Led a team of 15 to design an automated s'mores machine.</span></li>
+        <li><b class="ed">Robot building</b><span class="ed">Hundreds of hours across VEX teams 90908A and 20203Z.</span></li>
+        <li><b class="ed">Research writing</b><span class="ed">Wrote a paper accepted for publication in NexGen Journal.</span></li>
+      </ul></div>
+      <div class="card rv"><h3 style="margin-bottom:1.2rem">Personal</h3><ul class="sk">
+        <li><b class="ed">Leadership</b><span class="ed">President of SNHS and SRC, and captain of Science Olympiad.</span></li>
+        <li><b class="ed">Teaching</b><span class="ed">Taught VEX Robotics to about 200 students and neural networks to club members.</span></li>
+        <li><b class="ed">Budgeting and fundraising</b><span class="ed">Managed a 5-figure budget and secured $800 in donations.</span></li>
+        <li><b class="ed">Performing</b><span class="ed">Played at Carnegie Hall and in Tokyo, Shanghai, Mexico, and Boston.</span></li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <span class="kicker">Photos</span>
+    <h2>Life in <span class="grad">pictures</span></h2>
+    <p class="lede">Tap a tile to add a photo, then tap its caption to rename it.</p>
+    <div class="gallery" id="galleryGrid"></div>
+  </div>
+</section>
+
+<section id="resume">
+  <div class="wrap">
+    <span class="kicker">Resume</span>
+    <h2>The full <span class="grad">resume</span></h2>
+    <p class="lede">Use the button to print it or save it as a PDF.</p>
+    <article class="paper rv">
+      <div class="head"><h3 class="ed">Anthony Wu</h3><p class="ed">Southborough, Massachusetts · anthonywuusa@gmail.com</p></div>
+      <div>
+        <h4>Education</h4>
+        <div class="item"><b class="ed">Algonquin Regional High School</b><span class="when ed">Expected 2027</span><p class="ed">Weighted GPA 4.34 · SAT 1500</p></div>
+        <h4>Experience and research</h4>
+        <div class="item"><b class="ed">NERA (own non-profit), Founder, President and Head Coach</b><span class="when ed">2023–now</span><p class="ed">Taught VEX Robotics to about 200 students in summer camps; managed a 5-figure budget, donated $3,000+ to local education, and gave out 700+ service hours.</p></div>
+        <div class="item"><b class="ed">Chronic Kidney Disease Research Study, Researcher and Author</b><span class="when ed">2026</span><p class="ed">Trained an XGBoost model to 99% accuracy; paper accepted by NexGen Journal.</p></div>
+        <div class="item"><b class="ed">Fay Engineering (WBLA), Paid Intern</b><span class="when ed">Fall 2023</span><p class="ed">Organized 15 coworkers to design a CAD model of an automated s'mores machine.</p></div>
+        <div class="item"><b class="ed">VEX Robotics 90908A and 20203Z, Builder and Team Leader</b><span class="when ed">2023–26</span><p class="ed">Led the team in competitions and earned about 10 regional and national awards.</p></div>
+      </div>
+      <div>
+        <h4>Music</h4>
+        <div class="item"><b class="ed">Violin, student of Kyoko Horowitz</b><span class="when ed">13 years</span><p class="ed">Concertos by Bruch, Saint-Saëns, Vieuxtemps, Paganini, and Wieniawski.</p></div>
+        <div class="item"><b class="ed">Boston Philharmonic Youth Orchestra</b><span class="when ed">2024–now</span><p class="ed">Toured China, Japan, and Mexico; played at Boston Symphony Hall and the Tokyo Opera House.</p></div>
+        <h4>Leadership</h4>
+        <div class="item"><b class="ed">Science National Honor Society, President</b><span class="when ed">2026–now</span></div>
+        <div class="item"><b class="ed">Science Research Club, President</b><span class="when ed">2026–now</span></div>
+        <div class="item"><b class="ed">Science Olympiad, Captain</b><span class="when ed">2026–now</span></div>
+        <div class="item"><b class="ed">Varsity Soccer and NEFC Club Soccer, Winger</b><span class="when ed">2024–27</span></div>
+        <h4>Honors</h4>
+        <ul>
+          <li class="ed">First Place, Charleston International Competition</li>
+          <li class="ed">First Prize, Elite International Music Competition; Carnegie Hall</li>
+          <li class="ed">Massachusetts All-State Orchestra, 2023–25</li>
+          <li class="ed">Semifinalist, CREATE U.S. Open Robotics Tournament</li>
+          <li class="ed">President's Volunteer Service Award, Gold</li>
+          <li class="ed">Seal of Biliteracy in Latin; Math Honor Society</li>
+        </ul>
+      </div>
+    </article>
+    <div class="cta"><button class="btn main" onclick="window.print()">Print or save as PDF</button></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2 class="grad">Let's talk.</h2>
+    <a class="mail ed" href="mailto:anthonywuusa@gmail.com">anthonywuusa@gmail.com</a>
+    <small>© 2026 Anthony Wu</small>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// scroll progress + cursor glow
+const sb = document.getElementById('scrollbar');
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  sb.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, {passive:true});
+const glow = document.getElementById('glow');
+if (matchMedia('(pointer:fine)').matches) {
+  addEventListener('pointermove', e => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
+}
+
+// theme
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', () => {
+  const root = document.documentElement;
+  const light = root.dataset.theme === 'dark';
+  root.dataset.theme = light ? 'light' : 'dark';
+  themeBtn.textContent = light ? '☾ Dark' : '☀ Light';
+});
+
+// typewriter
+const roles = ['founder and head coach','violinist','researcher and author','team leader','builder'];
+const typed = document.getElementById('typed');
+let ri = 0, ci = 0, del = false;
+function type(){
+  const w = roles[ri];
+  typed.textContent = w.slice(0, ci);
+  if(!del && ci < w.length){ ci++; setTimeout(type, 85); }
+  else if(!del){ del = true; setTimeout(type, 1500); }
+  else if(ci > 0){ ci--; setTimeout(type, 40); }
+  else { del = false; ri = (ri + 1) % roles.length; setTimeout(type, 300); }
+}
+if(reduce){ typed.textContent = roles[0]; } else { type(); }
+
+// marquee
+const words = ['Robotics','Violin','Research','Leadership','Science','Soccer','Service','Machine Learning'];
+const track = document.getElementById('track');
+track.innerHTML = [...words, ...words].map(w => '<span>' + w + '</span>').join('');
+
+// stars canvas
+(function(){
+  const c = document.getElementById('stars'); if(reduce) return;
+  const x = c.getContext('2d'); let w, h, pts = [];
+  function size(){ w = c.width = c.offsetWidth; h = c.height = c.offsetHeight;
+    pts = Array.from({length: Math.min(70, Math.floor(w/16))}, () => ({x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35})); }
+  size(); addEventListener('resize', size);
+  (function loop(){
+    x.clearRect(0,0,w,h);
+    pts.forEach(p => { p.x += p.vx; p.y += p.vy; if(p.x<0||p.x>w) p.vx*=-1; if(p.y<0||p.y>h) p.vy*=-1;
+      x.fillStyle = 'rgba(255,200,87,.8)'; x.beginPath(); x.arc(p.x,p.y,1.6,0,6.3); x.fill(); });
+    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+      const dx = pts[i].x-pts[j].x, dy = pts[i].y-pts[j].y, d = Math.hypot(dx,dy);
+      if(d<120){ x.strokeStyle = 'rgba(139,92,246,' + (1-d/120)*.45 + ')'; x.beginPath(); x.moveTo(pts[i].x,pts[i].y); x.lineTo(pts[j].x,pts[j].y); x.stroke(); }
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// portrait upload
+const pIn = document.getElementById('photoInput'), pBox = document.getElementById('photoBox');
+pIn.addEventListener('change', e => {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    let img = pBox.querySelector('img');
+    if(!img){ img = document.createElement('img'); img.alt = 'Portrait'; pBox.appendChild(img); }
+    img.src = r.result; document.getElementById('photoHint').style.display = 'none';
+  };
+  r.readAsDataURL(f);
+});
+pBox.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pIn.click(); }});
+
+// gallery
+const grid = document.getElementById('galleryGrid');
+for(let i=1;i<=7;i++){
+  const t = document.createElement('label');
+  t.className = 'shot'; t.tabIndex = 0;
+  t.innerHTML = '<span><span class="plus">+</span>Add photo ' + i + '</span><input type="file" accept="image/*" class="hidden">';
+  const inp = t.querySelector('input');
+  inp.addEventListener('change', e => {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      t.firstElementChild.remove();
+      const img = document.createElement('img'); img.src = r.result; img.alt = 'Photo ' + i;
+      const cap = document.createElement('figcaption'); cap.textContent = 'Add a caption'; cap.contentEditable = 'true';
+      cap.addEventListener('click', ev => ev.preventDefault());
+      t.prepend(img); t.appendChild(cap); t.classList.add('filled');
+    };
+    r.readAsDataURL(f);
+  });
+  t.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); inp.click(); }});
+  grid.appendChild(t);
+}
+
+// reveal, counters, bars, rings
+function count(el){
+  const end = parseFloat(el.dataset.count), dec = +(el.dataset.dec||0), plus = el.dataset.suffix || '';
+  if(reduce){ el.textContent = end.toFixed(dec) + plus; return; }
+  const t0 = performance.now(), dur = 1600;
+  (function f(t){ const p = Math.min((t-t0)/dur,1), e = 1-Math.pow(1-p,3);
+    el.textContent = (end*e).toFixed(dec) + (p===1?plus:''); if(p<1) requestAnimationFrame(f); })(t0);
+}
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if(!en.isIntersecting) return;
+  const el = en.target; el.classList.add('in');
+  el.querySelectorAll('[data-count]').forEach(count);
+  el.querySelectorAll('.bar i').forEach(b => b.style.width = b.dataset.w + '%');
+  if(el.matches('.card') || el.querySelector('.skill')) el.querySelectorAll('.skill').forEach(s => {
+    s.querySelector('.fg').style.strokeDashoffset = 226 - 226 * (+s.dataset.v) / 100; });
+  io.unobserve(el);
+}), {threshold:.2});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// 3D tilt
+document.querySelectorAll('.tilt').forEach(c => {
+  if(reduce) return;
+  c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect(), x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5;
+    c.style.transform = 'rotateY(' + (x*12) + 'deg) rotateX(' + (-y*12) + 'deg) translateY(-6px)';
+  });
+  c.addEventListener('pointerleave', () => c.style.transform = '');
+});
+
+// edit mode
+const eb = document.getElementById('editBtn');
+eb.addEventListener('click', () => {
+  const on = eb.getAttribute('aria-pressed') !== 'true';
+  eb.setAttribute('aria-pressed', on); eb.textContent = on ? 'Done editing' : 'Edit text';
+  document.body.classList.toggle('editing', on);
+  document.querySelectorAll('.ed').forEach(el => el.contentEditable = on);
+});
+</script>
+</body>
+</html>
